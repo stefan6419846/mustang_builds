@@ -28,5 +28,5 @@ jobs:
     - name: Upload JAR artifact
       uses: actions/upload-artifact@v6
       with:
-        name: Mustang-CLI-SNAPSHOT.jar
+        name: Mustang-CLI-SNAPSHOT
         path: Mustang-CLI/target/Mustang-CLI-*-SNAPSHOT.jar
