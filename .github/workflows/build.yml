@@ -7,18 +7,24 @@ on:
   schedule:
     - cron: 0 6 * * 1
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
       with:
         repository: 'ZUGFeRD/mustangproject'
 
     - name: Set up JDK
-      uses: actions/setup-java@v5
+      uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654  # v5.2.0
       with:
         distribution: 'temurin'
         java-version: '17'
@@ -28,7 +34,7 @@ jobs:
       run: mvn -B clean package
 
     - name: Upload JAR artifact
-      uses: actions/upload-artifact@v7
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
       with:
         name: Mustang-CLI-SNAPSHOT
         path: Mustang-CLI/target/Mustang-CLI-*-SNAPSHOT.jar
